@@ -57,8 +57,9 @@ for DIR in DIRS:
                         annotations = []
                         with open(filename) as f:
                             for line in f:
-                                for class_type in classes:
-                                    line = line.replace(class_type, str(classes.get(class_type)))
+                                i = [x.isdigit() for x in line].index(True)
+                                label_string = line[:(i - 1)]
+                                line = line.replace(label_string, str(classes.get(label_string)))
                                 labels = line.split()
                                 coords = np.asarray([float(labels[1]), float(labels[2]), float(labels[3]), float(labels[4])])
                                 coords = convert(filename_str, coords)
